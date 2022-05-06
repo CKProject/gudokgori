@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "310605981427",
+    "project_id": "gudokgori",
+    "storage_bucket": "gudokgori.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310605981427:android:ab2cca80e9e026fff8f986",
+        "android_client_info": {
+          "package_name": "com.ckproject.gudokgori"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310605981427-l917p47dfnpsnlugafqb2cnv6cbl0g80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtEisJDtbtF1f7jCCT5PGdbUJjNvyjKmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310605981427-l917p47dfnpsnlugafqb2cnv6cbl0g80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
