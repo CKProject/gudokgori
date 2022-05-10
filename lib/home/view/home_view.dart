@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gudokgori/alarm/view/alarm_page.dart';
 
+import '../../service_sub/view/service_list_page.dart';
+
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -15,8 +17,17 @@ class HomeView extends StatelessWidget {
           child: CircleAvatar(),
         ),
         actions: [
-          const CircleAvatar(
-            radius: 17,
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ServiceListPage()),
+              );
+            },
+            child: const CircleAvatar(
+              radius: 17,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 10),

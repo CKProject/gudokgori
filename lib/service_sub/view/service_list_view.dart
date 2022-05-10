@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gudokgori/alarm/widgets/alarm_box.dart';
+import 'package:gudokgori/service_sub/bloc/service_list_bloc.dart';
 
-import '../bloc/alarm_bloc.dart';
 import '../widgets/bottom_loader.dart';
+import '../widgets/service_box.dart';
 
-class AlarmView extends StatefulWidget {
-  const AlarmView({Key? key}) : super(key: key);
+class ServiceListView extends StatefulWidget {
+  const ServiceListView({Key? key}) : super(key: key);
 
   @override
-  _AlarmViewState createState() => _AlarmViewState();
+  _ServiceListViewState createState() => _ServiceListViewState();
 }
 
-class _AlarmViewState extends State<AlarmView> {
+class _ServiceListViewState extends State<ServiceListView> {
   final _scrollController = ScrollController();
 
   @override
@@ -32,26 +32,27 @@ class _AlarmViewState extends State<AlarmView> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const Text("알림"),
+          const Text("구독 서비스를 선택해 주세요."),
           Expanded(
-            child: BlocBuilder<AlarmBloc, AlarmState>(
+            child: BlocBuilder<ServiceListBloc, ServiceListState>(
               builder: (context, state) {
                 switch (state.status) {
-                  case AlarmStatus.failure:
-                    return const Center(child: Text('failed to fetch Alarms'));
-                  case AlarmStatus.success:
-                    if (state.alarms.isEmpty) {
+                  case ServiceListStatus.failure:
+                    return const Center(
+                        child: Text('failed to fetch ServiceLists'));
+                  case ServiceListStatus.success:
+                    if (state.serviceList.isEmpty) {
                       return const Center(child: Text('no alarms'));
                     }
                     return ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
-                        return index >= state.alarms.length
+                        return index >= state.serviceList.length
                             ? const BottomLoader()
-                            : AlarmBox(alarm: state.alarms[index]);
+                            : ServiceBox(serviceList: state.serviceList[index]);
                       },
                       itemCount: state.hasReachedMax
-                          ? state.alarms.length
-                          : state.alarms.length + 1,
+                          ? state.serviceList.length
+                          : state.serviceList.length + 1,
                       controller: _scrollController,
                     );
                   default:
@@ -74,7 +75,7 @@ class _AlarmViewState extends State<AlarmView> {
   }
 
   void _onScroll() {
-    if (_isBottom) context.read<AlarmBloc>().add(AlarmFetched());
+    if (_isBottom) context.read<ServiceListBloc>().add(ServiceListFetched());
   }
 
   bool get _isBottom {

@@ -67,7 +67,7 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
       print(response.body);
       final body = json.decode(response.body) as List;
       return body.map((dynamic json) {
-        return Alarm(id: 0, receiver: 'receiver', body: 'body');
+        return const Alarm(id: 0, receiver: 'receiver', body: 'body');
       }).toList();
     }
     throw Exception('error fetching Alarms');

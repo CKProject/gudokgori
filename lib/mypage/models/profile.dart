@@ -6,13 +6,18 @@ class Profile extends Equatable {
     required this.name,
     required this.phone,
     required this.profileImg,
+    required this.serviceCount,
+    required this.totalPrice,
   });
 
   final int id;
   final String name;
-  final int phone;
+  final String phone;
   final String profileImg;
+  final int serviceCount;
+  final int totalPrice;
 
   @override
-  List<Object> get props => [id, name, phone, profileImg];
+  List<Object> get props =>
+      [id, name, phone, profileImg, serviceCount, totalPrice];
 }
