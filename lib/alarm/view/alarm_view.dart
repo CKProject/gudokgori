@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gudokgori/alarm/widgets/alarm_box.dart';
 
+import '../../service_sub/widgets/bottom_loader.dart';
 import '../bloc/alarm_bloc.dart';
-import '../widgets/bottom_loader.dart';
+import '../widgets/alarm_box.dart';
 
 class AlarmView extends StatefulWidget {
   const AlarmView({Key? key}) : super(key: key);
@@ -43,6 +43,7 @@ class _AlarmViewState extends State<AlarmView> {
                     if (state.alarms.isEmpty) {
                       return const Center(child: Text('no alarms'));
                     }
+                    print("state.status : ${state.status}");
                     return ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
                         return index >= state.alarms.length

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gudokgori/alarm/view/alarm_page.dart';
 
 import '../../service_sub/view/service_list_page.dart';
+import '../bloc/home_bloc.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -47,7 +49,14 @@ class HomeView extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       body: Column(
-        children: [],
+        children: [
+          Container(),
+          Expanded(child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              return Container();
+            },
+          ))
+        ],
       ),
     );
   }
