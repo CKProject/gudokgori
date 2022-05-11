@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 import 'package:stream_transform/stream_transform.dart';
@@ -38,7 +38,7 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
         return emit(state.copyWith(
           status: AlarmStatus.success,
           alarms: alarms,
-          hasReachedMax: false,
+          hasReachedMax: alarms.length < 20 ? true : false,
         ));
       }
       final alarms = await _fetchAlarms(state.alarms.length);
@@ -50,26 +50,25 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
               hasReachedMax: false,
             ));
     } catch (_) {
+      print(_);
       emit(state.copyWith(status: AlarmStatus.failure));
     }
   }
 
   final http.Client httpClient;
   Future<List<Alarm>> _fetchAlarms([int startIndex = 0]) async {
-    final response = await httpClient.get(
-      Uri.https(
-        'jsonplaceholder.typicode.com',
-        '/Alarms',
-        <String, String>{'_start': '$startIndex', '_limit': '$_alarmLimit'},
-      ),
-    );
-    if (response.statusCode == 200) {
-      print(response.body);
-      final body = json.decode(response.body) as List;
-      return body.map((dynamic json) {
-        return const Alarm(id: 0, receiver: 'receiver', body: 'body');
+    try {
+      var alarm = await FirebaseFirestore.instance
+          .collection('alarm')
+          .where("receiver", isEqualTo: "receiver")
+          .get();
+      return alarm.docs.map((doc) {
+        print(doc['receiver']);
+        return Alarm(id: 0, receiver: doc['receiver'], body: doc['content']);
       }).toList();
+    } catch (_) {
+      print(_);
+      throw Exception('error fetching Alarms : $_');
     }
-    throw Exception('error fetching Alarms');
   }
 }

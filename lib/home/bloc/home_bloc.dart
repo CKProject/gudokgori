@@ -31,16 +31,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
   }
   Future<void> _onHomeInit(HomeInit event, Emitter<HomeState> emit) async {
-    if (state.hasReachedMax) return;
-    try {
-      if (state.status == HomeStatus.initial) {
+    if (state.status == HomeStatus.initial) {
+      try {
         final services = await _fetchPosts();
+        final home = await _initHome();
         return emit(state.copyWith(
           status: HomeStatus.success,
           services: services,
           hasReachedMax: false,
+          homes: home,
         ));
+      } catch (_) {
+        print(_);
+        emit(state.copyWith(status: HomeStatus.failure));
       }
+    }
+    try {
+      if (state.hasReachedMax) return;
       final services = await _fetchPosts(state.services.length);
       emit(services.isEmpty
           ? state.copyWith(hasReachedMax: true)
@@ -50,7 +57,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               hasReachedMax: false,
             ));
     } catch (_) {
-      emit(state.copyWith(status: HomeStatus.failure));
+      print(_);
+      emit(state.copyWith(status: HomeStatus.listFailure));
     }
   }
 
@@ -63,21 +71,35 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ),
     );
     if (response.statusCode == 200) {
-      print(response.body);
+      //print(response.body);
       final body = json.decode(response.body) as List;
       return body.map((dynamic json) {
         return HomeService(
-            serviceId: json['id'] as int,
-            serviceName: json['name'] as String,
-            serviceImg: json['img'] as String,
-            startDate: DateTime.parse(json['date']),
-            remainDate: json['remain'] as int);
+            serviceId: 0,
+            serviceName: 'serviceName',
+            serviceImg: 'serviceImg',
+            startDate: DateTime.now(),
+            remainDate: 0);
       }).toList();
     }
     throw Exception('error fetching posts');
   }
 
+  Future<Home> _initHome() async {
+    try {
+      var alarm = await FirebaseFirestore.instance
+          .collection('alarm')
+          .where("isRead", isEqualTo: true)
+          .get();
+      print("alarm.docs : ${alarm.docs.first['isRead']}");
+      return Home(totalPrice: 0, payedPrice: 0, approachingServices: []);
+    } catch (_) {
+      throw Exception('error init home : $_');
+    }
+  }
+
   final CollectionReference products =
       FirebaseFirestore.instance.collection('alarm');
+
   final http.Client httpClient;
 }

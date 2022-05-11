@@ -10,6 +10,6 @@ class AlarmBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///TODO:알람 박스
-    return Container();
+    return Text(alarm.body);
   }
 }
