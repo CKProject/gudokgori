@@ -4,6 +4,9 @@ import 'package:gudokgori/alarm/view/alarm_page.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../service_sub/view/service_list_page.dart';
+import '../widgets/approaching_payment_box.dart';
+import '../widgets/spent_money_box.dart';
+import '../widgets/subscribe_box.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
