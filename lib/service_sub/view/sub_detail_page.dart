@@ -11,7 +11,7 @@ class SubDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ServiceSubBloc>(
       create: (context) => ServiceSubBloc(),
-      child: const SubDetailView(),
+      child:  SubDetailView(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:gudokgori/service_sub/bloc/service_list_bloc.dart';
 
 import '../widgets/bottom_loader.dart';
@@ -27,12 +28,29 @@ class _ServiceListViewState extends State<ServiceListView> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        foregroundColor: Colors.black,
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 10.0, right:7),
+          child: InkWell(
+              onTap: (){
+                Get.back();
+              },
+              child: Icon(Icons.arrow_back_ios,color: Colors.black, )),
+        ),
       ),
       backgroundColor: Colors.white,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("구독 서비스를 선택해 주세요."),
+          Padding(
+            padding: const EdgeInsets.only(left:10, top:40, bottom:20),
+            child: const Text("구독 서비스를 선택해 주세요.",
+                style:TextStyle(
+                  fontSize:25,
+                  fontFamily: 'Noto',
+                  fontWeight: FontWeight.w700,
+                )
+            ),
+          ),
           Expanded(
             child: BlocBuilder<ServiceListBloc, ServiceListState>(
               builder: (context, state) {
