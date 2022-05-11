@@ -1,26 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:gudokgori/service_sub/bloc/service_list_bloc.dart';
 
-import '../widgets/bottom_loader.dart';
 import '../widgets/service_box.dart';
 
-class ServiceListView extends StatefulWidget {
+class ServiceListView extends StatelessWidget {
   const ServiceListView({Key? key}) : super(key: key);
-
-  @override
-  _ServiceListViewState createState() => _ServiceListViewState();
-}
-
-class _ServiceListViewState extends State<ServiceListView> {
-  final _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +14,15 @@ class _ServiceListViewState extends State<ServiceListView> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(top: 10.0, right:7),
+          padding: const EdgeInsets.only(top: 10.0, right: 7),
           child: InkWell(
-              onTap: (){
-                Get.back();
+              onTap: () {
+                Navigator.pop(context);
               },
-              child: Icon(Icons.arrow_back_ios,color: Colors.black, )),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
         ),
       ),
       backgroundColor: Colors.white,
@@ -42,14 +30,13 @@ class _ServiceListViewState extends State<ServiceListView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left:10, top:40, bottom:20),
+            padding: const EdgeInsets.only(left: 10, top: 40, bottom: 20),
             child: const Text("구독 서비스를 선택해 주세요.",
-                style:TextStyle(
-                  fontSize:25,
+                style: TextStyle(
+                  fontSize: 25,
                   fontFamily: 'Noto',
                   fontWeight: FontWeight.w700,
-                )
-            ),
+                )),
           ),
           Expanded(
             child: BlocBuilder<ServiceListBloc, ServiceListState>(
@@ -63,16 +50,11 @@ class _ServiceListViewState extends State<ServiceListView> {
                       return const Center(child: Text('no alarms'));
                     }
                     return ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        return index >= state.serviceList.length
-                            ? const BottomLoader()
-                            : ServiceBox(serviceList: state.serviceList[index]);
-                      },
-                      itemCount: state.hasReachedMax
-                          ? state.serviceList.length
-                          : state.serviceList.length + 1,
-                      controller: _scrollController,
-                    );
+                        itemBuilder: (BuildContext context, int index) {
+                          return ServiceBox(
+                              serviceList: state.serviceList[index]);
+                        },
+                        itemCount: state.serviceList.length);
                   default:
                     return const Center(child: CircularProgressIndicator());
                 }
@@ -82,24 +64,5 @@ class _ServiceListViewState extends State<ServiceListView> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    if (_isBottom) context.read<ServiceListBloc>().add(ServiceListFetched());
-  }
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
   }
 }

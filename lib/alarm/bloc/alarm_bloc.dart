@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:http/http.dart' as http;
+import 'package:jiffy/jiffy.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 import '../models/alarm.dart';
@@ -22,7 +22,7 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 }
 
 class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
-  AlarmBloc({required this.httpClient}) : super(const AlarmState()) {
+  AlarmBloc() : super(const AlarmState()) {
     on<AlarmFetched>(
       _onAlarmFetched,
       transformer: throttleDroppable(throttleDuration),
@@ -31,6 +31,7 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
 
   Future<void> _onAlarmFetched(
       AlarmFetched event, Emitter<AlarmState> emit) async {
+    await Jiffy.locale("ko");
     if (state.hasReachedMax) return;
     try {
       if (state.status == AlarmStatus.initial) {
@@ -55,16 +56,21 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
     }
   }
 
-  final http.Client httpClient;
   Future<List<Alarm>> _fetchAlarms([int startIndex = 0]) async {
     try {
       var alarm = await FirebaseFirestore.instance
           .collection('alarm')
+          .orderBy('id')
           .where("receiver", isEqualTo: "receiver")
           .get();
       return alarm.docs.map((doc) {
         print(doc['receiver']);
-        return Alarm(id: 0, receiver: doc['receiver'], body: doc['content']);
+        return Alarm(
+          id: 0,
+          receiver: doc['receiver'],
+          body: doc['content'],
+          createAt: (doc['createAt'] as Timestamp).toDate(),
+        );
       }).toList();
     } catch (_) {
       print(_);

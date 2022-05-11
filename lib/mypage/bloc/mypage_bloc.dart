@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gudokgori/mypage/models/models.dart';
-import 'package:http/http.dart' as http;
 import 'package:stream_transform/stream_transform.dart';
 
 part 'mypage_event.dart';
@@ -18,7 +16,7 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 }
 
 class MyPageBloc extends Bloc<MyPageEvent, MyPageState> {
-  MyPageBloc({required this.httpClient}) : super(const MyPageState()) {
+  MyPageBloc() : super(const MyPageState()) {
     on<MyPageFetched>(
       _onMyPageFetched,
       transformer: throttleDroppable(throttleDuration),
@@ -38,32 +36,33 @@ class MyPageBloc extends Bloc<MyPageEvent, MyPageState> {
     }
   }
 
-  final http.Client httpClient;
   Future<Profile> _fetchMyPages(String phone) async {
-    final response = await httpClient.get(
-      Uri.https(
-        'jsonplaceholder.typicode.com',
-        '/MyPages',
-        <String, String>{'phone': phone},
-      ),
-    );
-    if (response.statusCode == 200) {
-      print(response.body);
-      final body = json.decode(response.body) as List;
-      return body
-          .map((dynamic json) {
+    try {
+      var profile = await FirebaseFirestore.instance
+          .collection('user')
+          .where('name', isEqualTo: 'test')
+          .get();
+      var userServiceList = await FirebaseFirestore.instance
+          .collection('subscribes')
+          .where('userPhone', isEqualTo: profile.docs.first['phone'])
+          .get();
+      int totalPrice = 0;
+      userServiceList.docs.map((e) => totalPrice += e['subscribePrice'] as int);
+      return profile.docs
+          .map((doc) {
             return Profile(
-              id: json['id'] as int,
-              name: json['name'] as String,
-              phone: json['phone'] as String,
-              profileImg: json['profileImg'] as String,
-              serviceCount: json['serviceCount'] as int,
-              totalPrice: json['totalPrice'] as int,
-            );
+                id: doc['id'],
+                name: doc['name'],
+                phone: doc['phone'],
+                profileImg: doc['profile'],
+                serviceCount: userServiceList.docs.length,
+                totalPrice: totalPrice);
           })
           .toList()
           .first;
+    } catch (_) {
+      print(_);
+      throw Exception('error fetching Alarms : $_');
     }
-    throw Exception('error fetching MyPages');
   }
 }

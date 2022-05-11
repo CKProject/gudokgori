@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HomeBloc>(
       create: (context) => HomeBloc(httpClient: http.Client())..add(HomeInit()),
-      child: const HomeView(),
+      child: HomeView(),
     );
   }
 }

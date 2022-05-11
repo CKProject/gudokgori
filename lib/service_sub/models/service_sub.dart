@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class ServiceSub extends Equatable {
   const ServiceSub({
-    required this.id,
+    required this.userPhone,
     required this.serviceName,
     required this.serviceImg,
     required this.serviceCategory,
@@ -16,7 +16,7 @@ class ServiceSub extends Equatable {
     required this.freePeriodUnit,
   });
 
-  final int id;
+  final String userPhone;
   final String serviceName;
   final String serviceImg;
   final String serviceCategory;
@@ -31,7 +31,7 @@ class ServiceSub extends Equatable {
 
   @override
   List<Object> get props => [
-        id,
+        userPhone,
         serviceName,
         serviceImg,
         serviceCategory,

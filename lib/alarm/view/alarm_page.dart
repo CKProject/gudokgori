@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gudokgori/alarm/view/alarm_view.dart';
-import 'package:http/http.dart' as http;
 
 import '../bloc/alarm_bloc.dart';
 
@@ -11,8 +10,7 @@ class AlarmPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AlarmBloc>(
-      create: (context) =>
-          AlarmBloc(httpClient: http.Client())..add(AlarmFetched()),
+      create: (context) => AlarmBloc()..add(AlarmFetched()),
       child: const AlarmView(),
     );
   }

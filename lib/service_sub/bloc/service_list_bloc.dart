@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gudokgori/service_sub/models/service_list.dart';
-import 'package:http/http.dart' as http;
 import 'package:stream_transform/stream_transform.dart';
 
 part 'service_list_event.dart';
@@ -18,8 +16,7 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 }
 
 class ServiceListBloc extends Bloc<ServiceListEvent, ServiceListState> {
-  ServiceListBloc({required this.httpClient})
-      : super(const ServiceListState()) {
+  ServiceListBloc() : super(const ServiceListState()) {
     on<ServiceListFetched>(
       _onServiceListFetched,
       transformer: throttleDroppable(throttleDuration),
@@ -30,34 +27,39 @@ class ServiceListBloc extends Bloc<ServiceListEvent, ServiceListState> {
       ServiceListFetched event, Emitter<ServiceListState> emit) async {
     try {
       final serviceList = await _fetchServiceLists();
+      serviceList.insert(
+          0,
+          const ServiceList(
+              id: 0,
+              serviceName: '직접입력',
+              serviceImg: 'serviceImg',
+              serviceCategory: ''));
       emit(state.copyWith(
         status: ServiceListStatus.success,
         serviceList: serviceList,
       ));
     } catch (_) {
+      print(_);
       emit(state.copyWith(status: ServiceListStatus.failure));
     }
   }
 
-  final http.Client httpClient;
   Future<List<ServiceList>> _fetchServiceLists() async {
-    final response = await httpClient.get(
-      Uri.https(
-        'jsonplaceholder.typicode.com',
-        '/ServiceLists',
-      ),
-    );
-    if (response.statusCode == 200) {
-      print(response.body);
-      final body = json.decode(response.body) as List;
-      return body.map((dynamic json) {
+    try {
+      var serviceList = await FirebaseFirestore.instance
+          .collection('subscribeList')
+          .orderBy('serviceCategory')
+          .get();
+      return serviceList.docs.map((doc) {
         return ServiceList(
-            id: json['id'] as int,
-            serviceName: json['serviceName'] as String,
-            serviceImg: json['serviceImg'] as String,
-            serviceCategory: json['serviceCategory'] as String);
+            id: doc['id'],
+            serviceName: doc['serviceName'],
+            serviceImg: doc['serviceImg'],
+            serviceCategory: doc['serviceCategory']);
       }).toList();
+    } catch (_) {
+      print(_);
+      throw Exception('error fetching Alarms : $_');
     }
-    throw Exception('error fetching ServiceLists');
   }
 }
