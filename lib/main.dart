@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gudokgori/home/view/home_page.dart';
 
 import 'bloc_observer.dart';
+import 'login/view/input_name_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               fontFamily: 'Noto',
             ),
-            home: const HomePage(),
+            home: const InputNamePage(),
           );
         } else {
           return const CircularProgressIndicator();
