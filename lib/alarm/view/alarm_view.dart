@@ -27,12 +27,31 @@ class _AlarmViewState extends State<AlarmView> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        foregroundColor: Colors.black,
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 10.0, right: 7),
+          child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
+        ),
       ),
       backgroundColor: Colors.white,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("알림"),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 40, bottom: 20),
+            child: const Text("알림",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontFamily: 'Noto',
+                  fontWeight: FontWeight.w700,
+                )),
+          ),
           Expanded(
             child: BlocBuilder<AlarmBloc, AlarmState>(
               builder: (context, state) {

@@ -30,7 +30,7 @@ class ServiceListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10, top: 40, bottom: 20),
+            padding: const EdgeInsets.only(left: 10, top: 40, bottom: 40),
             child: const Text("구독 서비스를 선택해 주세요.",
                 style: TextStyle(
                   fontSize: 25,
