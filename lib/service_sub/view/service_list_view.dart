@@ -19,7 +19,7 @@ class ServiceListView extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
                 color: Colors.black,
               )),
@@ -29,9 +29,9 @@ class ServiceListView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 40, bottom: 40),
-            child: const Text("구독 서비스를 선택해 주세요.",
+          const Padding(
+            padding: EdgeInsets.only(left: 10, top: 40, bottom: 20),
+            child: Text("구독 서비스를 선택해 주세요.",
                 style: TextStyle(
                   fontSize: 25,
                   fontFamily: 'Noto',

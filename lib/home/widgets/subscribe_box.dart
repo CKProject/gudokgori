@@ -14,11 +14,12 @@ class SubscribeBox extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         width: MediaQuery.of(context).size.width,
         height: 100,
         decoration: BoxDecoration(
-            color: Color(0xFFF8FAFF), borderRadius: BorderRadius.circular(5)),
+            color: const Color(0xFFF8FAFF),
+            borderRadius: BorderRadius.circular(5)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,30 +27,30 @@ class SubscribeBox extends StatelessWidget {
             Row(
               children: [
                 Image.asset('assets/youtube.png'),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           '유튜브 프리미엄',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Container(
                           width: 50,
                           height: 20,
                           decoration: BoxDecoration(
-                            color:
-                                Color(0xFF6F7AFF), //Color(0xFFFF6464) red color
+                            color: const Color(
+                                0xFF6F7AFF), //Color(0xFFFF6464) red color
                             borderRadius: BorderRadius.circular(50),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               '15일 뒤',
                               style: TextStyle(
@@ -61,7 +62,7 @@ class SubscribeBox extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text(
+                    const Text(
                       '2021.07.15 ~',
                       style: TextStyle(
                         fontSize: 13,
@@ -71,12 +72,9 @@ class SubscribeBox extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.arrow_forward_ios),
-              ],
-            )
+            const Align(
+                alignment: Alignment.center,
+                child: Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),

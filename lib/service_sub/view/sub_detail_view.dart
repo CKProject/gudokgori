@@ -11,10 +11,9 @@ class SubDetailView extends StatelessWidget {
     '년',
   ];
 
-  String? selectedValue;
-
   @override
   Widget build(BuildContext context) {
+    String? selectedValue;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -25,7 +24,7 @@ class SubDetailView extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
                 color: Colors.black,
               )),
@@ -37,38 +36,38 @@ class SubDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding:
-                  EdgeInsets.only(left: 10, top: 40, bottom: 20, right: 10),
-              child: Text('넷플릭스 정보를 확인하세요.',
+              padding: const EdgeInsets.only(
+                  left: 10, top: 40, bottom: 20, right: 10),
+              child: const Text('넷플릭스 정보를 확인하세요.',
                   style: TextStyle(
                     fontSize: 25,
                     fontFamily: 'Noto',
                     fontWeight: FontWeight.w700,
                   )),
             ),
-            SizedBox(height: 20),
-            DetailBlock(),
-            SizedBox(height: 40),
+            const SizedBox(height: 20),
+            const DetailBlock(),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     '결제 금액',
                     style: TextStyle(
                       color: Color(0xFF666666),
                     ),
                   ),
-                  TextField(),
-                  SizedBox(height: 50),
+                  const TextField(),
+                  const SizedBox(height: 50),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               '결제 일',
                               style: TextStyle(
@@ -79,11 +78,11 @@ class SubDetailView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               '결제 주기',
                               style: TextStyle(
@@ -94,24 +93,24 @@ class SubDetailView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: DropdownButtonFormField2(
-                          selectedItemHighlightColor: Color(0xFFECECEC),
+                          selectedItemHighlightColor: const Color(0xFFECECEC),
                           decoration: InputDecoration(
                             //Add isDense true and zero Padding.
                             //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                             isDense: true,
                             contentPadding: EdgeInsets.zero,
                             border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1),
+                              borderSide: const BorderSide(
+                                  color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
                             enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1),
+                              borderSide: const BorderSide(
+                                  color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
@@ -120,9 +119,9 @@ class SubDetailView extends StatelessWidget {
                           ),
                           isExpanded: true,
                           buttonDecoration: BoxDecoration(
-                              color: Color(0xFFFBFCFF),
+                              color: const Color(0xFFFBFCFF),
                               border: Border.all(
-                                  color: Color(0xFFECECEC), width: 1),
+                                  color: const Color(0xFFECECEC), width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           hint: const Text(
                             '일',
@@ -154,6 +153,7 @@ class SubDetailView extends StatelessWidget {
                             if (value == null) {
                               return 'Please select gender.';
                             }
+                            return null;
                           },
                           onChanged: (value) {
                             //Do something when changing the item if you want.
@@ -165,14 +165,14 @@ class SubDetailView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               '무료 체험 여부',
                               style: TextStyle(
@@ -183,11 +183,11 @@ class SubDetailView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               '무료 체험 기간',
                               style: TextStyle(
@@ -198,24 +198,24 @@ class SubDetailView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: DropdownButtonFormField2(
-                          selectedItemHighlightColor: Color(0xFFECECEC),
+                          selectedItemHighlightColor: const Color(0xFFECECEC),
                           decoration: InputDecoration(
                             //Add isDense true and zero Padding.
                             //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                             isDense: true,
                             contentPadding: EdgeInsets.zero,
                             border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1),
+                              borderSide: const BorderSide(
+                                  color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
                             enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1),
+                              borderSide: const BorderSide(
+                                  color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
@@ -224,9 +224,9 @@ class SubDetailView extends StatelessWidget {
                           ),
                           isExpanded: true,
                           buttonDecoration: BoxDecoration(
-                              color: Color(0xFFFBFCFF),
+                              color: const Color(0xFFFBFCFF),
                               border: Border.all(
-                                  color: Color(0xFFECECEC), width: 1),
+                                  color: const Color(0xFFECECEC), width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           hint: const Text(
                             '일',
@@ -258,21 +258,23 @@ class SubDetailView extends StatelessWidget {
                             if (value == null) {
                               return 'Please select gender.';
                             }
+                            return null;
                           },
                           onChanged: (value) {
                             //Do something when changing the item if you want.
                           },
                           onSaved: (value) {
                             selectedValue = value.toString();
+                            print(selectedValue);
                           },
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
                         '한줄 메모',
                         style: TextStyle(
@@ -282,7 +284,7 @@ class SubDetailView extends StatelessWidget {
                       TextField(),
                     ],
                   ),
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                   InkWell(
                     onTap: () {
                       Navigator.pop(context);
@@ -291,10 +293,10 @@ class SubDetailView extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: 55,
                       decoration: BoxDecoration(
-                        color: Color(0xFF364EF6),
+                        color: const Color(0xFF364EF6),
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           '완료',
                           style: TextStyle(
@@ -305,7 +307,7 @@ class SubDetailView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 70),
+                  const SizedBox(height: 70),
                 ],
               ),
             ),

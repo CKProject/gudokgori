@@ -6,15 +6,16 @@ class ApproachingPaymentBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       width: MediaQuery.of(context).size.width,
       height: 140,
       decoration: BoxDecoration(
-          color: Color(0xFFF8FAFF), borderRadius: BorderRadius.circular(5)),
+          color: const Color(0xFFF8FAFF),
+          borderRadius: BorderRadius.circular(5)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             '결제일 다가오는 서비스',
             style: TextStyle(
               fontSize: 15,
@@ -22,13 +23,13 @@ class ApproachingPaymentBox extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             children: [
               Column(
                 children: [
                   Image.asset('assets/disney.png', width: 50),
-                  Text(
+                  const Text(
                     '1일 뒤',
                     style: TextStyle(
                       color: Color(0xFFFF1B1B),
@@ -38,11 +39,11 @@ class ApproachingPaymentBox extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               Column(
                 children: [
                   Image.asset('assets/netflix.png', width: 50),
-                  Text(
+                  const Text(
                     '3일 뒤',
                     style: TextStyle(
                       color: Color(0xFFFF1B1B),
@@ -52,11 +53,11 @@ class ApproachingPaymentBox extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               Column(
                 children: [
                   Image.asset('assets/tving.png', width: 50),
-                  Text(
+                  const Text(
                     '7일 뒤',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -65,11 +66,11 @@ class ApproachingPaymentBox extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               Column(
                 children: [
                   Image.asset('assets/youtube.png', width: 50),
-                  Text(
+                  const Text(
                     '15일 뒤',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,

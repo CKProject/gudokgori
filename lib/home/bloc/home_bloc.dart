@@ -86,13 +86,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<Home> _initHome() async {
+    int total = 0;
     try {
-      var alarm = await FirebaseFirestore.instance
-          .collection('alarm')
-          .where("isRead", isEqualTo: true)
+      var subscribes = await FirebaseFirestore.instance
+          .collection('subscribes')
+          .where("userPhone", isEqualTo: '01012345678')
           .get();
-      print("alarm.docs : ${alarm.docs.first['isRead']}");
-      return Home(totalPrice: 0, payedPrice: 0, approachingServices: []);
+      print("subscribes : ${subscribes.docs.first['serviceImg']}");
+
+      subscribes.docs.map((e) {
+        total += e['subscribePrice'] as int;
+        print(total);
+      });
+      return Home(totalPrice: total, payedPrice: 0, approachingServices: []);
     } catch (_) {
       throw Exception('error init home : $_');
     }

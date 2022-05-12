@@ -10,7 +10,6 @@ class ServiceBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///TODO:서비스 박스
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -24,25 +23,22 @@ class ServiceBox extends StatelessWidget {
         color: Color(0xFFF8FAFF),
         margin: const EdgeInsets.only(bottom: 5),
         child: Container(
-          padding: EdgeInsets.only(left:10),
+          padding: EdgeInsets.only(left: 10),
           child: Row(
             children: [
-              Image.asset('assets/nemo_netflix.png',width:60),
-              SizedBox(width:10),
+              Image.asset('assets/nemo_netflix.png', width: 60),
+              SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(serviceList.serviceCategory,
-                    style:TextStyle(
-                      fontSize:10,
-                      color:Color(0xFF7B7B7B)
-                    )
-                  ),
-                  Text(serviceList.serviceName,
-                    style:TextStyle(
+                      style: TextStyle(fontSize: 10, color: Color(0xFF7B7B7B))),
+                  Text(
+                    serviceList.serviceName,
+                    style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize:16,
+                      fontSize: 16,
                     ),
                   ),
                 ],
