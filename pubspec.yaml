@@ -45,6 +45,8 @@ dependencies:
   bloc_concurrency: ^0.2.0
   stream_transform: ^2.0.0
   jiffy: ^5.0.0
+  intl: ^0.17.0
+  firebase_storage: ^10.2.15
 
 dev_dependencies:
   flutter_test:

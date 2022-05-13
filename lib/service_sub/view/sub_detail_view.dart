@@ -1,9 +1,12 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:gudokgori/home/home.dart';
 import 'package:gudokgori/service_sub/widgets/detail_block.dart';
 
 class SubDetailView extends StatelessWidget {
-  SubDetailView({Key? key}) : super(key: key);
+  SubDetailView({Key? key, required this.service}) : super(key: key);
+
+  final HomeService service;
 
   final List<String> genderItems = [
     '일',
@@ -38,8 +41,8 @@ class SubDetailView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(
                   left: 10, top: 40, bottom: 20, right: 10),
-              child: const Text('넷플릭스 정보를 확인하세요.',
-                  style: TextStyle(
+              child: Text('${service.serviceName}\n정보를 확인하세요.',
+                  style: const TextStyle(
                     fontSize: 25,
                     fontFamily: 'Noto',
                     fontWeight: FontWeight.w700,

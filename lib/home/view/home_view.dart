@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gudokgori/alarm/view/alarm_page.dart';
 import 'package:gudokgori/mypage/view/my_page.dart';
+import 'package:intl/intl.dart';
 
 import '../../service_sub/view/service_list_page.dart';
 import '../bloc/home_bloc.dart';
@@ -10,8 +11,9 @@ import '../widgets/spent_money_box.dart';
 import '../widgets/subscribe_box.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
 
+  final f = NumberFormat('###,###,###,###');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +75,7 @@ class HomeView extends StatelessWidget {
               BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   return Text(
-                    state.homes.totalPrice.toString(),
+                    f.format(state.homes.totalPrice) + "원",
                     style: const TextStyle(
                       fontSize: 25,
                       fontFamily: 'Noto',
@@ -93,14 +95,20 @@ class HomeView extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 10),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child: SubscribeBox(),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state.services.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: SubscribeBox(
+                          homeService: state.services[index],
+                        ),
+                      );
+                    },
                   );
                 },
               ),

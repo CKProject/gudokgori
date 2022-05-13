@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gudokgori/home/view/home_view.dart';
-import 'package:http/http.dart' as http;
 
 import '../bloc/home_bloc.dart';
 
@@ -11,8 +10,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeBloc>(
-      create: (context) => HomeBloc(httpClient: http.Client())..add(HomeInit()),
-      child: const HomeView(),
+      create: (context) => HomeBloc()..add(HomeInit()),
+      child: HomeView(),
     );
   }
 }
