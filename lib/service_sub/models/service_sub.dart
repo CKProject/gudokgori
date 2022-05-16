@@ -14,6 +14,9 @@ class ServiceSub extends Equatable {
     required this.hasFreePeriod,
     required this.freePeriod,
     required this.freePeriodUnit,
+    required this.nextPeriod,
+    required this.remainDate,
+    required this.token,
   });
 
   final String userPhone;
@@ -28,6 +31,9 @@ class ServiceSub extends Equatable {
   final bool hasFreePeriod;
   final int freePeriod;
   final String freePeriodUnit;
+  final DateTime nextPeriod;
+  final int remainDate;
+  final String token;
 
   @override
   List<Object> get props => [
@@ -43,6 +49,9 @@ class ServiceSub extends Equatable {
         payPeriodUnit,
         hasFreePeriod,
         freePeriod,
-        freePeriodUnit
+        freePeriodUnit,
+        nextPeriod,
+        remainDate,
+        token,
       ];
 }

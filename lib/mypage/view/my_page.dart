@@ -11,7 +11,7 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<MyPageBloc>(
       create: (context) => MyPageBloc()..add(MyPageFetched()),
-      child: const MyView(),
+      child: MyView(),
     );
   }
 }

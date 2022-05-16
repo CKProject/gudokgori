@@ -47,7 +47,9 @@ class MyPageBloc extends Bloc<MyPageEvent, MyPageState> {
           .where('userPhone', isEqualTo: profile.docs.first['phone'])
           .get();
       int totalPrice = 0;
-      userServiceList.docs.map((e) => totalPrice += e['subscribePrice'] as int);
+      for (var userService in userServiceList.docs) {
+        totalPrice += userService['subscribePrice'] as int;
+      }
       return profile.docs
           .map((doc) {
             return Profile(

@@ -5,6 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:gudokgori/service_sub/models/service_list.dart';
 import 'package:stream_transform/stream_transform.dart';
 
+import '../models/service_sub.dart';
+
 part 'service_list_event.dart';
 part 'service_list_state.dart';
 
@@ -61,5 +63,25 @@ class ServiceListBloc extends Bloc<ServiceListEvent, ServiceListState> {
       print(_);
       throw Exception('error fetching Alarms : $_');
     }
+  }
+
+  ServiceSub serviceListToSub(ServiceList serviceList, String userPhone) {
+    return ServiceSub(
+      userPhone: userPhone,
+      serviceName: serviceList.serviceName,
+      serviceImg: serviceList.serviceImg,
+      serviceCategory: serviceList.serviceCategory,
+      simpleMemo: "",
+      subscribePrice: 0,
+      startSubscribe: DateTime.now(),
+      payPeriod: 0,
+      payPeriodUnit: "D",
+      hasFreePeriod: false,
+      freePeriod: 0,
+      freePeriodUnit: "D",
+      remainDate: 0,
+      nextPeriod: DateTime.now(),
+      token: "",
+    );
   }
 }

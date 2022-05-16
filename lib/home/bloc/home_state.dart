@@ -9,19 +9,19 @@ class HomeState extends Equatable {
         totalPrice: 0,
         payedPrice: 0,
         approachingServices: <ApproachingService>[]),
-    this.services = const <HomeService>[],
+    this.services = const <ServiceSub>[],
     this.hasReachedMax = false,
   });
 
   final HomeStatus status;
   final Home homes;
-  final List<HomeService> services;
+  final List<ServiceSub> services;
   final bool hasReachedMax;
 
   HomeState copyWith({
     HomeStatus? status,
     Home? homes,
-    List<HomeService>? services,
+    List<ServiceSub>? services,
     bool? hasReachedMax,
   }) {
     return HomeState(

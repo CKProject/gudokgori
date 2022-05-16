@@ -1,11 +1,10 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:gudokgori/service_sub/models/service_list.dart';
 
 import '../widgets/detail_block.dart';
 
 class SubAddView extends StatelessWidget {
-   SubAddView({Key? key, required this.serviceList}) : super(key: key);
+  SubAddView({Key? key}) : super(key: key);
 
   final List<String> genderItems = [
     '일',
@@ -13,9 +12,7 @@ class SubAddView extends StatelessWidget {
     '년',
   ];
 
-   String? selectedValue;
-
-  final ServiceList serviceList;
+  String? selectedValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +38,7 @@ class SubAddView extends StatelessWidget {
           children: [
             Container(
               padding:
-              EdgeInsets.only(left: 10, top: 40, bottom: 20, right: 10),
+                  EdgeInsets.only(left: 10, top: 40, bottom: 20, right: 10),
               child: Text('넷플릭스 정보를 확인하세요.',
                   style: TextStyle(
                     fontSize: 25,
@@ -108,13 +105,13 @@ class SubAddView extends StatelessWidget {
                             contentPadding: EdgeInsets.zero,
                             border: OutlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.white, width: 1),
+                                  BorderSide(color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
                             enabledBorder: OutlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.white, width: 1),
+                                  BorderSide(color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
@@ -138,20 +135,20 @@ class SubAddView extends StatelessWidget {
                           iconSize: 30,
                           buttonHeight: 40,
                           buttonPadding:
-                          const EdgeInsets.only(left: 20, right: 10),
+                              const EdgeInsets.only(left: 20, right: 10),
                           dropdownDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                           ),
                           items: genderItems
                               .map((item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ))
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ))
                               .toList(),
                           validator: (value) {
                             if (value == null) {
@@ -212,13 +209,13 @@ class SubAddView extends StatelessWidget {
                             contentPadding: EdgeInsets.zero,
                             border: OutlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.white, width: 1),
+                                  BorderSide(color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
                             enabledBorder: OutlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.white, width: 1),
+                                  BorderSide(color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(5),
                             ),
 
@@ -242,20 +239,20 @@ class SubAddView extends StatelessWidget {
                           iconSize: 30,
                           buttonHeight: 40,
                           buttonPadding:
-                          const EdgeInsets.only(left: 20, right: 10),
+                              const EdgeInsets.only(left: 20, right: 10),
                           dropdownDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                           ),
                           items: genderItems
                               .map((item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ))
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ))
                               .toList(),
                           validator: (value) {
                             if (value == null) {

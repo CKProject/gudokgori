@@ -1,27 +1,11 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:gudokgori/home/home.dart';
+import 'package:gudokgori/service_sub/models/models.dart';
 import 'package:gudokgori/service_sub/view/sub_detail_page.dart';
 import 'package:intl/intl.dart';
 
-class SubscribeBox extends StatefulWidget {
+class SubscribeBox extends StatelessWidget {
   const SubscribeBox({Key? key, required this.homeService}) : super(key: key);
-
-  final HomeService homeService;
-  @override
-  _SubscribeBoxState createState() => _SubscribeBoxState();
-}
-
-class _SubscribeBoxState extends State<SubscribeBox> {
-  String subImg = "";
-  late HomeService homeService;
-  @override
-  void initState() {
-    homeService = widget.homeService;
-    storeImage(homeService.serviceImg);
-    super.initState();
-  }
-
+  final ServiceSub homeService;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -48,10 +32,12 @@ class _SubscribeBoxState extends State<SubscribeBox> {
             Row(
               children: [
                 Image.network(
-                  subImg,
+                  'https://firebasestorage.googleapis.com/v0/b/gudokgori.appspot.com/o/${homeService.serviceImg}?alt=media&token${homeService.token}',
                   errorBuilder: (BuildContext context, Object exception,
                       StackTrace? stackTrace) {
-                    return Container();
+                    print(
+                        'https://firebasestorage.googleapis.com/v0/b/gudokgori.appspot.com/o/${homeService.serviceImg}?alt=media&token${homeService.token}');
+                    return const CircularProgressIndicator();
                   },
                 ),
                 const SizedBox(width: 20),
@@ -77,10 +63,10 @@ class _SubscribeBoxState extends State<SubscribeBox> {
                                 0xFF6F7AFF), //Color(0xFFFF6464) red color
                             borderRadius: BorderRadius.circular(50),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '15일 뒤',
-                              style: TextStyle(
+                              '${homeService.remainDate}일 뒤',
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 10),
@@ -90,7 +76,8 @@ class _SubscribeBoxState extends State<SubscribeBox> {
                       ],
                     ),
                     Text(
-                      DateFormat('yyyy.MM.dd').format(homeService.startDate) +
+                      DateFormat('yyyy.MM.dd')
+                              .format(homeService.startSubscribe) +
                           ' ~',
                       style: const TextStyle(
                         fontSize: 13,
@@ -107,19 +94,5 @@ class _SubscribeBoxState extends State<SubscribeBox> {
         ),
       ),
     );
-  }
-
-  void storeImage(String img) async {
-    print("img : $img");
-    var ref = FirebaseStorage.instance.ref().child('유튜브프리미엄.jpg');
-    try {
-      String s = await ref.getDownloadURL();
-      print("s : $s");
-      setState(() {
-        subImg = s;
-      });
-    } catch (_) {
-      print(_);
-    }
   }
 }

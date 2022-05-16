@@ -75,7 +75,9 @@ class HomeView extends StatelessWidget {
               BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   return Text(
-                    f.format(state.homes.totalPrice) + "원",
+                    state.status == HomeStatus.initial
+                        ? "..."
+                        : f.format(state.homes.totalPrice) + "원",
                     style: const TextStyle(
                       fontSize: 25,
                       fontFamily: 'Noto',
@@ -86,9 +88,27 @@ class HomeView extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              const SpentMoneyBox(),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  return SpentMoneyBox(
+                    total: state.status == HomeStatus.initial
+                        ? "..."
+                        : f.format(state.homes.totalPrice) + "원",
+                    payed: state.status == HomeStatus.initial
+                        ? "..."
+                        : f.format(state.homes.payedPrice) + "원",
+                    percent: state.homes.payedPrice / state.homes.totalPrice,
+                  );
+                },
+              ),
               const SizedBox(height: 10),
-              const ApproachingPaymentBox(),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  return ApproachingPaymentBox(
+                    services: state.homes.approachingServices,
+                  );
+                },
+              ),
               const SizedBox(height: 40),
               const Text(
                 '내 구독 서비스',
@@ -102,12 +122,16 @@ class HomeView extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: state.services.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: SubscribeBox(
-                          homeService: state.services[index],
-                        ),
-                      );
+                      if (state.status == HomeStatus.initial) {
+                        return const Text("로딩중");
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: SubscribeBox(
+                            homeService: state.services[index],
+                          ),
+                        );
+                      }
                     },
                   );
                 },

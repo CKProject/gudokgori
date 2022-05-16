@@ -1,12 +1,14 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:gudokgori/home/home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gudokgori/service_sub/widgets/detail_block.dart';
 
-class SubDetailView extends StatelessWidget {
-  SubDetailView({Key? key, required this.service}) : super(key: key);
+import '../bloc/service_sub_bloc.dart';
 
-  final HomeService service;
+class SubDetailView extends StatelessWidget {
+  SubDetailView({
+    Key? key,
+  }) : super(key: key);
 
   final List<String> genderItems = [
     '일',
@@ -38,15 +40,19 @@ class SubDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.only(
-                  left: 10, top: 40, bottom: 20, right: 10),
-              child: Text('${service.serviceName}\n정보를 확인하세요.',
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Noto',
-                    fontWeight: FontWeight.w700,
-                  )),
+            BlocBuilder<ServiceSubBloc, ServiceSubState>(
+              builder: (context, state) {
+                return Container(
+                  padding: const EdgeInsets.only(
+                      left: 10, top: 40, bottom: 20, right: 10),
+                  child: Text('${state.serviceSub.serviceName}\n정보를 확인하세요.',
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'Noto',
+                        fontWeight: FontWeight.w700,
+                      )),
+                );
+              },
             ),
             const SizedBox(height: 20),
             const DetailBlock(),

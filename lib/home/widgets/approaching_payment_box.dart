@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gudokgori/home/home.dart';
+import 'package:gudokgori/home/widgets/approaching_service_widget.dart';
 
 class ApproachingPaymentBox extends StatelessWidget {
-  const ApproachingPaymentBox({Key? key}) : super(key: key);
+  const ApproachingPaymentBox({Key? key, required this.services})
+      : super(key: key);
 
+  final List<ApproachingService> services;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,63 +28,18 @@ class ApproachingPaymentBox extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Column(
-                children: [
-                  Image.asset('assets/disney.png', width: 50),
-                  const Text(
-                    '1일 뒤',
-                    style: TextStyle(
-                      color: Color(0xFFFF1B1B),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 15),
-              Column(
-                children: [
-                  Image.asset('assets/netflix.png', width: 50),
-                  const Text(
-                    '3일 뒤',
-                    style: TextStyle(
-                      color: Color(0xFFFF1B1B),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 15),
-              Column(
-                children: [
-                  Image.asset('assets/tving.png', width: 50),
-                  const Text(
-                    '7일 뒤',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 15),
-              Column(
-                children: [
-                  Image.asset('assets/youtube.png', width: 50),
-                  const Text(
-                    '15일 뒤',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          Expanded(
+            child: services.isNotEmpty
+                ? ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: services.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ApproachingServiceWidget(
+                        service: services[index],
+                      );
+                    })
+                : const Text("없음"),
+          )
         ],
       ),
     );

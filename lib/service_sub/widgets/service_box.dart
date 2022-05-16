@@ -1,7 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gudokgori/service_sub/models/service_list.dart';
 import 'package:gudokgori/service_sub/view/sub_add_page.dart';
+
+import '../../mypage/bloc/mypage_bloc.dart';
+import '../bloc/service_list_bloc.dart';
 
 class ServiceBox extends StatelessWidget {
   const ServiceBox({Key? key, required this.serviceList}) : super(key: key);
@@ -15,7 +18,14 @@ class ServiceBox extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => SubAddPage(serviceList: serviceList)),
+              builder: (context) => SubAddPage(
+                  service: BlocProvider.of<ServiceListBloc>(context)
+                      .serviceListToSub(
+                          serviceList,
+                          BlocProvider.of<MyPageBloc>(context)
+                              .state
+                              .profile
+                              .phone))),
         );
       },
       child: Container(

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
-class DetailBlock extends StatefulWidget {
+class DetailBlock extends StatelessWidget {
   const DetailBlock({Key? key}) : super(key: key);
 
-  @override
-  _DetailBlockState createState() => _DetailBlockState();
-}
-
-class _DetailBlockState extends State<DetailBlock> {
   @override
   Widget build(BuildContext context) {
     return Container(

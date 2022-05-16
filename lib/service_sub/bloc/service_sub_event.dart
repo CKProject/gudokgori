@@ -1,4 +1,8 @@
 part of 'service_sub_bloc.dart';
 
-@immutable
-abstract class ServiceSubEvent {}
+abstract class ServiceSubEvent extends Equatable {
+  @override
+  List<Object> get props => [];
+}
+
+class ServiceSubFetched extends ServiceSubEvent {}

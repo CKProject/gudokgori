@@ -1,6 +1,27 @@
 part of 'service_sub_bloc.dart';
 
-@immutable
-abstract class ServiceSubState {}
+enum ServiceSubStatus { initial, success, failure }
 
-class ServiceSubInitial extends ServiceSubState {}
+class ServiceSubState extends Equatable {
+  const ServiceSubState({
+    required this.serviceSub,
+  });
+
+  final ServiceSub serviceSub;
+
+  ServiceSubState copyWith({
+    ServiceSub? serviceSub,
+  }) {
+    return ServiceSubState(
+      serviceSub: serviceSub ?? this.serviceSub,
+    );
+  }
+
+  @override
+  String toString() {
+    return '''ServiceSubState { ServiceSubs: $serviceSub }''';
+  }
+
+  @override
+  List<Object> get props => [serviceSub];
+}
